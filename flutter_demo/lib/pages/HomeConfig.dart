@@ -7,10 +7,24 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class HomePageState extends State<HomePage>
-    with TickerProviderStateMixin {
+class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController topController;
   var bottomController;
+  static int focusIndex = 0;
+  List<String> tab = [
+    "热门",
+    '男装',
+    '手机',
+    '食品',
+    '电器',
+    '鞋包',
+    '女装',
+    '骑车',
+    '水果',
+    '运动',
+    '电脑',
+    '百货'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -18,25 +32,36 @@ class HomePageState extends State<HomePage>
       backgroundColor: Colors.white,
       appBar: new AppBar(
         title: new Material(
-            child: new TabBar(
-              isScrollable: true,
-              controller: this.topController,
-              indicatorColor: Colors.transparent,
-              unselectedLabelColor: Colors.black45,
-              labelColor: Colors.redAccent,
-              tabs: <Tab>[
-                new Tab(text: '热门'),
-                new Tab(text: '男装'),
-                new Tab(text: '手机'),
-                new Tab(text: '食品'),
-                new Tab(text: '电器'),
-              ],
-            ),
-          ),
+          child: new ListView.builder(
+              itemCount: tab.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    if (index != focusIndex) {
+                      print(index);
+                      print(focusIndex);
+                      setState(() {
+                        focusIndex = index;
+                      });
+                    }
+                  },
+                  child: new Container(
+                      margin: EdgeInsets.only(left: 10.0, right: 5.0),
+                      child: Tab(
+                          child: Text(tab[index],
+                              style: new TextStyle(
+                                  color: focusIndex == index
+                                      ? Colors.redAccent
+                                      : null)))),
+                );
+              }),
+        ),
       ),
       body: new TabBarView(
         controller: this.topController, //配置控制器
-        children: [ // Tab 内容
+        children: [
+          // Tab 内容
           new Text('aaa'),
           new Text('bbb'),
           new Text('ccc'),
@@ -71,11 +96,11 @@ class HomePageState extends State<HomePage>
       length: 5, // tab 个数
       initialIndex: 0, // 起始位置
     );
-    this.bottomController=new TabController(
-        vsync: this, // 动画效果的异步处理
-        length: 5, // tab 个数
-        initialIndex: 0, // 起始位置
-        );
+    this.bottomController = new TabController(
+      vsync: this, // 动画效果的异步处理
+      length: 5, // tab 个数
+      initialIndex: 0, // 起始位置
+    );
   }
 
   @override
