@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_demo/common/PictureConfig.dart';
+import 'package:flutter_demo/models/NewsInfo.dart';
+import 'package:flutter_demo/widget/DisplayList.dart';
 import 'package:flutter_demo/widget/FunEntry.dart';
 
 class HotPage extends StatefulWidget {
@@ -12,10 +14,15 @@ class HotPage extends StatefulWidget {
 }
 
 class HotPageState extends State<HotPage> {
-
+static List<NewsInfo> list=[
+NewsInfo('http:\/\/img.juhe.cn\/cookbook\/t\/0\/45_854851.jpg','秘制红烧肉','家常菜;热菜;烧;煎;炖;红烧;炒锅','玫瑰腐乳,适量;盐,适量;八角,适量;草果,适量;香叶,适量;料酒,适量;米醋,适量;生姜,适量'),
+NewsInfo('http:\/\/img.juhe.cn\/cookbook\/t\/1\/52_759155.jpg','经典红烧肉','家常菜;咸;半小时-1小时;孕妇;青少年;老人;白领;晚餐;红烧;营养;增强抵抗力;全菜系;1-2人;待客菜;锅子','葱,适量;姜,适量;蒜,适量;八角,2粒;桂皮,1块;干辣椒,1个;酱油,适量;冰糖,适量;盐,适量;料酒,适量'),
+NewsInfo('http:\/\/img.juhe.cn\/cookbook\/t\/1\/92_512827.jpg','红烧肉','家常菜;快手菜','葱段,适量;八角,2个;干辣椒,4个;香叶,4片;桂皮,1块;鲜姜,1块;干山楂片,4片;黄油,适量;老抽,适量;生抽,适量;白糖,适量;开水,适量'),
+];
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    print(list.length);
     return RefreshIndicator(
     onRefresh: _refresh,
         child:new ListView.builder(
@@ -53,7 +60,16 @@ class HotPageState extends State<HotPage> {
                             );
                           }
                         }, childCount: 2),
-                      ))
+                      )),
+                new Container(
+                  height:150.0,
+                  child: new ListView.builder(
+                      itemBuilder: (BuildContext context,int index){
+                        return getDisplay(list[index]);
+                      },
+                    itemCount: list.length,
+                      ),
+                )
                 ],
               );
             },
