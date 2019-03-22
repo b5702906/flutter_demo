@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_demo/pages/HomeConfig.dart';
+import 'package:flutter_demo/pages/HomePage.dart';
 
 void main() {
   runApp(new MyApp());
