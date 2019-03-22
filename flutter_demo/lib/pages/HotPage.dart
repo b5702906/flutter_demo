@@ -1,5 +1,8 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_demo/api/HttpParse.dart';
 import 'package:flutter_demo/common/PictureConfig.dart';
 import 'package:flutter_demo/models/NewsInfo.dart';
 import 'package:flutter_demo/widget/DisplayList.dart';
@@ -77,7 +80,17 @@ NewsInfo('http:\/\/img.juhe.cn\/cookbook\/t\/1\/92_512827.jpg','红烧肉','家�
     );
   }
    Future<Null> _refresh() async{
-      print(11111);
+      list.clear();
+      getAsyncData().then((Map<String,dynamic> map){
+        for(Map<String,dynamic>res in map['result']['data']){
+          print(res['albums'][0]);
+          list.add(NewsInfo(res['albums'][0], res['title'].toString(), res['tags'].toString(), res['burden'].toString()));
+        }
+        setState(() {
+
+        });
+      }
+      );
   }
 
 }
