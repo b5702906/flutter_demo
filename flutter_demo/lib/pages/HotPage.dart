@@ -126,14 +126,15 @@ class HotPageState extends State<HotPage> {
   }
 
   void _getMore() async{
+    isLoading=true;
       getAsyncData().then((Map<String, dynamic> map) {
         for (Map<String, dynamic> res in map['result']['data']) {
           print(res['albums'][0]);
           list.add(NewsInfo(res['albums'][0], res['title'].toString(),
               res['tags'].toString(), res['burden'].toString()));
         }
-        isLoading=false;
         setState(() {});
+        isLoading=false;
       });
   }
   @override
